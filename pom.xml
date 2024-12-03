@@ -1,0 +1,91 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.example</groupId>
+    <artifactId>SerializationComparison</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <!-- Definir versão do Protobuf -->
+        <protobuf.version>3.21.12</protobuf.version>
+        <!-- Definir versão do os-maven-plugin -->
+        <os-maven-plugin.version>1.7.0</os-maven-plugin.version>
+        <!-- Definir versão do Java -->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <!-- JSON (Jackson) -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.15.0</version>
+        </dependency>
+
+        <!-- XML (Jackson XmlMapper) -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <version>2.15.0</version>
+        </dependency>
+
+        <!-- Protobuf -->
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>${protobuf.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <extensions>
+            <!-- Incluir o os-maven-plugin -->
+            <extension>
+                <groupId>kr.motd.maven</groupId>
+                <artifactId>os-maven-plugin</artifactId>
+                <version>${os-maven-plugin.version}</version>
+            </extension>
+        </extensions>
+        <plugins>
+            <!-- Protobuf Maven Plugin -->
+            <plugin>
+                <groupId>org.xolstice.maven.plugins</groupId>
+                <artifactId>protobuf-maven-plugin</artifactId>
+                <version>0.6.1</version>
+                <configuration>
+                    <protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}</protocArtifact>
+                    <pluginId>java</pluginId>
+                    <outputDirectory>${project.build.directory}/generated-sources/protobuf/java</outputDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>compile-protobuf</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Definir o diretório onde estão os arquivos .proto -->
+                            <protoSourceRoot>${project.basedir}/src/main/proto</protoSourceRoot>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Maven Compiler Plugin -->
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <!-- Adicionar diretório de fontes geradas -->
+                    <generatedSourcesDirectory>${project.build.directory}/generated-sources/protobuf/java</generatedSourcesDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

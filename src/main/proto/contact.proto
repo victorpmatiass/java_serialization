@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package com.example.protobuf;
+
+option java_multiple_files = true;
+option java_package = "com.example.protobuf";
+option java_outer_classname = "Protos";
+
+// Definição para Contact
+message Contact {
+  string name = 1;
+  string email = 2;
+  bytes photo = 3;
+}
+
+// Definição para ContactList
+message ContactList {
+  repeated Contact contacts = 1;
+}
+
+// Definição para Product
+message Product {
+  string name = 1;
+  int32 quantity = 2;
+  double price = 3;
+}
+
+// Definição para PurchaseRequest
+message PurchaseRequest {
+  string customerName = 1;
+  repeated Product productList = 2;
+}
