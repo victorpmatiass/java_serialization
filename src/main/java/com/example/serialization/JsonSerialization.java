@@ -11,10 +11,9 @@ public class JsonSerialization {
     private static final ObjectMapper objectMapper = new ObjectMapper();
     
     static {
-        // Exclude null and default values
+
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_DEFAULT);
-        // Disable writing type identifiers and extra whitespace
         objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         objectMapper.configure(SerializationFeature.INDENT_OUTPUT, false); 

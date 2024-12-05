@@ -24,13 +24,7 @@ public class Server {
         }
     }
 
-    /**
-     * Reads the header from the input stream and splits it into serialization type and contact list label.
-     *
-     * @param inputStream The input stream from the client.
-     * @return An array where the first element is the serialization type and the second is the contact list label.
-     * @throws IOException If an error occurs during reading.
-     */
+    // Reads the header from the input stream and splits it into serialization type and contact list label.
     private static String[] readHeader(InputStream inputStream) throws IOException {
         StringBuilder headerBuilder = new StringBuilder();
         int b;
@@ -38,16 +32,10 @@ public class Server {
             headerBuilder.append((char) b);
         }
         String header = headerBuilder.toString();
-        return header.split(":", 2); // Split into two parts: type and number
+        return header.split(":", 2); 
     }
 
-    /**
-     * Reads the remaining data from the input stream to determine the size.
-     *
-     * @param inputStream The input stream from the client.
-     * @return The total number of bytes read.
-     * @throws IOException If an error occurs during reading.
-     */
+    // Reads the remaining data from the input stream to determine the size.
     private static int readDataSize(InputStream inputStream) throws IOException {
         byte[] buffer = new byte[1024 * 16];
         int bytesRead;

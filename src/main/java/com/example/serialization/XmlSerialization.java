@@ -2,7 +2,7 @@ package com.example.serialization;
 
 import com.example.model.ContactList;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import java.io.IOException; // Adicione esta linha para importar IOException
+import java.io.IOException; 
 
 public class XmlSerialization {
     

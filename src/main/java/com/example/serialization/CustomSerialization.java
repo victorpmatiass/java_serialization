@@ -9,9 +9,8 @@ public class CustomSerialization {
     public static byte[] serialize(ContactList contactList) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         DataOutputStream out = new DataOutputStream(bos);
-        // Write the number of contacts
+
         out.writeInt(contactList.getContacts().size());
-        // Write each contact
         for (Contact contact : contactList.getContacts()) {
             writeContact(out, contact);
         }
